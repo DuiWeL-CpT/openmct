@@ -70,6 +70,7 @@ define(
 
         function NewEntryContextual($compile, $rootScope, dialogService, notificationService, linkService, context) {
             context = context || {};
+            console.log(context);
             this.domainObject = context.selectedObject || context.domainObject;
             this.dialogService = dialogService;
             this.notificationService = notificationService;

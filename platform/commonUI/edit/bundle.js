@@ -33,6 +33,7 @@ define([
     "./src/actions/SaveAndStopEditingAction",
     "./src/actions/SaveAsAction",
     "./src/actions/CancelAction",
+    "./src/actions/CreateNewFolderAction",
     "./src/policies/EditActionPolicy",
     "./src/policies/EditPersistableObjectsPolicy",
     "./src/policies/EditableLinkPolicy",
@@ -45,6 +46,7 @@ define([
     "./src/services/TransactionService",
     "./src/creation/CreateMenuController",
     "./src/creation/LocatorController",
+    "./src/creation/NewFolderController",
     "./src/creation/CreationPolicy",
     "./src/creation/CreateActionProvider",
     "./src/creation/AddActionProvider",
@@ -52,6 +54,7 @@ define([
     "text!./res/templates/create/locator.html",
     "text!./res/templates/create/create-button.html",
     "text!./res/templates/create/create-menu.html",
+    "text!./res/templates/create/create-new-folder.html",
     "text!./res/templates/library.html",
     "text!./res/templates/edit-object.html",
     "text!./res/templates/edit-action-buttons.html",
@@ -71,6 +74,7 @@ define([
     SaveAndStopEditingAction,
     SaveAsAction,
     CancelAction,
+    CreateNewFolderAction,
     EditActionPolicy,
     EditPersistableObjectsPolicy,
     EditableLinkPolicy,
@@ -83,6 +87,7 @@ define([
     TransactionService,
     CreateMenuController,
     LocatorController,
+    NewFolderController,
     CreationPolicy,
     CreateActionProvider,
     AddActionProvider,
@@ -90,6 +95,7 @@ define([
     locatorTemplate,
     createButtonTemplate,
     createMenuTemplate,
+    createNewFolderTemplate,
     libraryTemplate,
     editObjectTemplate,
     editActionButtonsTemplate,
@@ -145,7 +151,15 @@ define([
                     "depends": [
                         "$scope",
                         "$timeout",
-                        "objectService"
+                        "objectService",
+                    ]
+                },
+                {
+                    "key": "NewFolderController",
+                    "implementation": NewFolderController,
+                    "depends": [
+                        "$scope",
+                        "typeService"
                     ]
                 }
             ],
@@ -242,7 +256,16 @@ define([
                     "cssClass": "icon-x no-label",
                     "description": "Discard changes made to these objects.",
                     "depends": []
-                }
+                },
+                {
+                    "key": "create-new-folder",
+                    "implementation": CreateNewFolderAction,
+                    "description": "Creats a new folder.",
+                    "depends": [
+                        "policyService",
+                        "dialogService",
+                        "typeService",
+                    ]}
             ],
             "policies": [
                 {
@@ -407,6 +430,10 @@ define([
                 {
                     "key": "locator",
                     "template": locatorTemplate
+                },
+                {
+                    "key": "create-new-folder",
+                    "template": createNewFolderTemplate
                 }
             ],
             "services": [

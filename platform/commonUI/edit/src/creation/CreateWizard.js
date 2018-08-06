@@ -95,6 +95,12 @@ define(
                         control: "locator",
                         validate: validateLocation,
                         key: "createParent"
+                    },
+                    {
+                        name: "New Folder",
+                        control: "create-new-folder",
+                        key: 'newFolderName',
+                        required: false
                     }]
                 });
             }
