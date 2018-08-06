@@ -137,6 +137,7 @@ define(
             }
 
             function changeTemplateUrl(templateUrl) {
+                console.log(templateUrl);
                 if (templateUrl) {
                     destroyScope();
                     addElement();
@@ -155,6 +156,7 @@ define(
             }
 
             function changeTemplate(templateExt) {
+                console.log(templateExt);
                 templateExt = templateExt || {};
                 if (templateExt.templateUrl) {
                     changeTemplateUrl(self.getPath(templateExt));
@@ -164,7 +166,9 @@ define(
                     removeElement();
                 }
             }
-
+            
+            
+            
             changeTemplate(ext);
 
             return changeTemplate;
@@ -173,4 +177,3 @@ define(
         return TemplateLinker;
     }
 );
-

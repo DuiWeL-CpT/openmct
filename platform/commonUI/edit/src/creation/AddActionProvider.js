@@ -52,6 +52,7 @@ define(
         }
 
         AddActionProvider.prototype.getActions = function (actionContext) {
+            console.log(context);
             var context = actionContext || {},
                 key = context.key,
                 destination = context.domainObject;
