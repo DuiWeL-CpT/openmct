@@ -41,7 +41,6 @@ define(
                 $scope.createActions = $scope.action ?
                         $scope.action.getActions('create') :
                         [];
-                console.log($scope.createActions);
             }
 
             // Listen for new instances of the represented object's

@@ -21,8 +21,8 @@
  *****************************************************************************/
 
 define(
-    ['../actions/CreateNewFolderAction'],
-    function (CreateNewFolderAction) {
+    [],
+    function () {
 
         /**
          * Controller for the "locator" control, which provides the
@@ -31,7 +31,7 @@ define(
          * @memberof platform/commonUI/browse
          * @constructor
          */
-        function NewFolderController($scope, typeService) {
+        function NewFolderController($scope, typeService, $rootScope) {
             
             $scope.createNewFolderClickHandler = function() {
                 $scope.createNewFolder = true;
@@ -55,8 +55,8 @@ define(
             
             $scope.cancelClickHandler = function() {
                 $scope.createNewFolder = false;
-                $scope.newFolderName.$setPristine();
-                $scope.newFolderName.$setUntouched();
+                $scope.newFolder.newFolderName.$setPristine();
+                $scope.newFolder.newFolderName.$setUntouched();
                 
             }
             

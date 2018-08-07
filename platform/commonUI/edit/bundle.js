@@ -152,6 +152,8 @@ define([
                         "$scope",
                         "$timeout",
                         "objectService",
+                        "typeService",
+                        "policyService"
                     ]
                 },
                 {
@@ -260,11 +262,11 @@ define([
                 {
                     "key": "create-new-folder",
                     "implementation": CreateNewFolderAction,
-                    "description": "Creats a new folder.",
+                    "description": "Creates a new folder.",
                     "depends": [
                         "policyService",
                         "dialogService",
-                        "typeService",
+                        "typeService"
                     ]}
             ],
             "policies": [

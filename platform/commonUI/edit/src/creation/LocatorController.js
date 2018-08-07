@@ -31,7 +31,7 @@ define(
          * @memberof platform/commonUI/browse
          * @constructor
          */
-        function LocatorController($scope, $timeout, objectService) {
+        function LocatorController($scope, $timeout, objectService, typeService, policyService) {
             // Populate values needed by the locator control. These are:
             // * rootObject: The top-level object, since we want to show
             //               the full tree
@@ -63,6 +63,8 @@ define(
 
                 $scope.treeModel.selectedObject = domainObject;
                 $scope.ngModel[$scope.field] = domainObject;
+                
+                
 
                 // Restrict which locations can be selected
                 if (domainObject &&
@@ -81,12 +83,54 @@ define(
                         !!$scope.treeModel.selectedObject
                     );
                 }
+                
+                $scope.validNewFolder = policyService.allow(
+                        "composition", 
+                        $scope.treeModel.selectedObject, 
+                        domainObject.useCapability("instantiation", typeService.getType('folder').getInitialModel()));
+                    
+                console.log($scope.validNewFolder);
+
+                
+                
+                
+                function validateFolderName() {
+                    console.log(domainObject);
+                    console.log(domainObject.getCapability('action').getActions('create-new-folder'));
+                }
+                
+                $scope.createClickHandler = function() {
+                    console.log($scope.newFolderName);
+                    validateFolderName();
+                    
+                    //return CreateNewFolderAction($scope.newFolderName);
+                }
+                
+                $scope.folderPattern = typeService.getType('folder').getProperties().filter(
+                    function (prop) {
+                        return prop.propertyDefinition.key === "name";
+                    }
+                )[0].propertyDefinition.pattern;
+                
+                
+                
             }
 
+
+            $scope.createNewFolderClickHandler = function() {
+                $scope.createNewFolder = true;
+                $scope.validNewFolder = false;
+            }
+            
+            $scope.cancelClickHandler = function() {
+                $scope.createNewFolder = false;
+                
+            }
+            
             // Initial state for the tree's model
             $scope.treeModel =
                 { selectedObject: $scope.ngModel[$scope.field] };
-
+                
             // Watch for changes from the tree
             $scope.$watch("treeModel.selectedObject", setLocatingObject);
         }

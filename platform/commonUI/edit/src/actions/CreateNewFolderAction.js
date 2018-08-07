@@ -43,7 +43,6 @@ define([
             context,
             name
         ) {
-            console.log(context);
             this.parent = (context || {}).domainObject;
             this.policyService = policyService;
             this.typeService = typeService;
@@ -60,11 +59,11 @@ define([
                 folderType = typeService.getType('folder');
                 name = this.name;
                 newObject;
-            
+        
             newModel.type = folderType.getKey();
             newObject = parent.getCapability('instantiation').instantiate(newModel);
             newObject.useCapability('mutation', function (model) {
-                newModel.location = parentObject.getId();
+                newModel.location = parent.getId();
             });
             newModel.name = name;
             
@@ -102,10 +101,9 @@ define([
          * @returns true if applicable
          */
         CreateNewFolderAction.appliesTo = function (context) {
-            return domainObject !== undefined &&
-                domainObject.hasCapability('editor') &&
-                domainObject.getCapability('editor').isEditContextRoot() &&
-                domainObject.getModel().persisted === undefined;
+            var parent = (context || {}).domainObject;
+                
+            return parent && parent.hasCapability('editor');
         };
 
         return CreateNewFolderAction;
